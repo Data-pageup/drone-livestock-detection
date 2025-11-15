@@ -185,4 +185,4 @@ This repository includes the `.pdf` versions of the notebook.
 - **Google Colab GPU Environment**
 
 ## Done by - Amirtha Ganesh R 
-### contact me @ - amirthaganeshramesh@gmail.com 
+### contact me through mail - [amirthaganeshramesh@gmail.com] 
