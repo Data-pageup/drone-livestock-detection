@@ -18,15 +18,11 @@ This project demonstrates how modern lightweight vision models can be applied to
 - [Evaluation & Metrics](#-evaluation--metrics)
 - [Results & Visualizations](#-results--visualizations)
 - [Colab Notebook](#-colab-notebook)
-- [Inference Instructions](#-inference-instructions)
-- [Repository Structure](#-repository-structure)
-- [Use Cases](#-use-cases)
-- [Future Improvements](#-future-improvements)
 - [Acknowledgements](#-acknowledgements)
 
 ---
 
-# 🚁 Project Overview
+#  Project Overview
 
 Livestock management is increasingly adopting **drone-based automation** to monitor large herds in rough or inaccessible terrain.  
 This project develops a **YOLOv8n-based object detection model** capable of detecting **sheep** from aerial images captured by UAVs.
@@ -40,14 +36,14 @@ The primary goals of this project:
 
 ---
 
-# 📦 Dataset
+#  Dataset
 
 The dataset used for this project is hosted on **Roboflow Universe**:
 
 🔗 **Aerial Sheep Dataset**  
 https://universe.roboflow.com/riis/aerial-sheep
 
-### **Dataset Summary**
+## Dataset Summary
 - **Total Images:** 1,727  
 - **Annotations:** 55,435 bounding boxes  
 - **Classes:** 1 (sheep)  
@@ -55,31 +51,28 @@ https://universe.roboflow.com/riis/aerial-sheep
   - Train: 1,203  
   - Valid: 290  
   - Test: 234  
-- **Average objects per image:** 32.1  
+- **Average Objects/Image:** 32.1  
 - **Image Resolution:** 8.29–8.85 megapixels  
 - **Median Resolution:** 3840 × 2160  
-- **Aspect Ratio:** Primarily very wide images  
 
 ---
 
-# 📊 Dataset Details & Insights
+#  Dataset Details & Insights
 
 The dataset offers realistic aerial views with:
 
-### Environmental Variations
+## Environmental Variations
 - Harsh sunlight  
 - Strong shadows  
 - Tree occlusion  
 - Rocky terrain  
 - Grass of varying textures  
 
-### Common Challenges
+## Common Challenges
 - Sheep blending into the background  
 - Small object size in high-resolution frames  
 - Crowded flock regions  
 - Variable lighting conditions  
-
-These conditions make the dataset well-suited for evaluating real-world performance.
 
 ---
 
@@ -87,73 +80,70 @@ These conditions make the dataset well-suited for evaluating real-world performa
 
 This project uses **YOLOv8n** ("nano" variant) from Ultralytics.
 
-### Why YOLOv8n?
+## Why YOLOv8n?
 - Very lightweight  
 - Real-time inference  
 - Minimal GPU requirements  
 - Strong performance for small-object detection  
-- Good baseline before upgrading to YOLOv8s/m/l variants  
+- Good baseline before upgrading further  
 
-### YOLOv8 Features Used
+## YOLOv8 Features Used
 - C2f blocks  
 - SPPF layer  
-- Auto-optimizer selection (AdamW)  
+- AdamW optimizer (auto-selected)  
 - Automatic mixed precision (AMP)  
-- Built-in label caching and data loading optimizations  
+- Label caching & optimized dataloaders  
 
 ---
 
-# 🔧 Training Pipeline
+# Training Pipeline
 
-Training was performed fully inside **Google Colab**, using:
+Training was performed in **Google Colab** using:
 
 - **Tesla T4 GPU**
 - **Ultralytics 8.3.228**
 - **Torch 2.8.0**
 - **Python 3.12**
 
-The pipeline includes:
-
-1. Dataset import from Roboflow  
-2. YOLOv8 environment setup  
-3. Data caching for fast loading  
-4. Augmentation setup  
-5. Training and validation loops  
-6. Saving best/last weights  
-7. Final evaluation with full metrics  
-8. Generation of confidence & PR curves  
+## Pipeline Steps
+1. Dataset import  
+2. YOLOv8 setup  
+3. Data caching  
+4. Augmentations applied  
+5. Training (10 epochs)  
+6. Saving weights  
+7. Final validation  
+8. Curve generation  
 
 ---
 
-# ⚙️ Training Configuration
+#  Training Configuration
 
-### Core Parameters
+## Core Parameters
 - **Model:** `yolov8n.pt`  
 - **Epochs:** 10  
 - **Batch Size:** 64  
 - **Image Size:** 448  
-- **Optimizer:** AdamW (auto-chosen)  
+- **Optimizer:** AdamW  
 - **AMP:** Enabled  
-- **Train/Val Dataloaders:** 2 workers  
 
-### Augmentations Applied
-| Augmentation | Description |
-|-------------|-------------|
-| Blur | Slight motion blur simulation |
-| Median Blur | Reduces noise & texture variation |
-| CLAHE | Adaptive histogram equalization |
-| HSV | Color and exposure variation |
-| Horizontal Flip | Random mirroring |
+## Augmentations Used
 
-### Output Weights
-- **`weights/best.pt`**
-- **`weights/last.pt`**
+| Augmentation | Purpose |
+|-------------|---------|
+| Blur | Motion blur simulation |
+| Median Blur | Noise reduction |
+| CLAHE | Contrast enhancement |
+| HSV | Color/brightness variation |
+| Horizontal Flip | Mirror augmentation |
+
+## Output Weights
+- `weights/best.pt`  
+- `weights/last.pt`
 
 ---
 
 # 📈 Evaluation & Metrics
-
-Final validation results:
 
 | Metric | Score |
 |--------|--------|
@@ -162,45 +152,36 @@ Final validation results:
 | **mAP50** | 0.782 |
 | **mAP50-95** | 0.335 |
 
-These results reflect strong performance for a lightweight model trained for only 10 epochs.
+---
 
-Typical YOLO trends observed:
-- High mAP50 indicates accurate bounding boxes  
-- Lower mAP50-95 expected for tiny objects in aerial imagery  
+# Results & Visualizations
+
+<img width="667" src="https://github.com/user-attachments/assets/3a5be979-e6c0-4f04-9891-88fba4d727d6" />
+<img width="670" src="https://github.com/user-attachments/assets/ec0210a2-a124-4322-9ae5-c71d5d92ecf5" />
+<img width="667" src="https://github.com/user-attachments/assets/c9838dd4-bfa3-46ff-abcd-37c5a1034e6d" />
 
 ---
 
-# 🖼 Results & Visualizations
- 
-*<img width="667" height="377" alt="image" src="https://github.com/user-attachments/assets/3a5be979-e6c0-4f04-9891-88fba4d727d6" />
-<img width="670" height="374" alt="image" src="https://github.com/user-attachments/assets/ec0210a2-a124-4322-9ae5-c71d5d92ecf5" />
-<img width="667" height="375" alt="image" src="https://github.com/user-attachments/assets/c9838dd4-bfa3-46ff-abcd-37c5a1034e6d" />
+# Colab Notebook
 
+🔗 **Google Colab Notebook:**  
+https://colab.research.google.com/drive/1gL1J5PHfEaeRqdVnNoMy8k-WBHwfxsO7?usp=sharing
 
-*  
-
-You may include:
-- Validation batch visualizations  
-- Prediction results  
-- Confidence distribution plots  
-- PR curves  
+This repository includes the `.pdf` versions of the notebook.
 
 ---
 
-# 📓 Colab Notebook
-Includes:
-- Dataset download  
-- YOLOv8 installation  
-- Training  
-- Validation  
-- Saving and exporting weights  
-- Running predictions  
+# Acknowledgements
 
----
+- **Roboflow Universe – Aerial Sheep Dataset**  
+  https://universe.roboflow.com/riis/aerial-sheep
 
-# The full training workflow is available in the notebook.
+- **Google Colab Notebook of the drone_livestock.ipynb**  
+  https://colab.research.google.com/drive/1gL1J5PHfEaeRqdVnNoMy8k-WBHwfxsO7?usp=sharing
 
-### Done By - Amirtha Ganesh R
+- **Ultralytics YOLOv8**  
+  https://github.com/ultralytics/ultralytics
 
+- **Google Colab GPU Environment**
 
-
+## done by - Amirtha Ganesh R
