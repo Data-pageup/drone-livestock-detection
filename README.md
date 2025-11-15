@@ -171,9 +171,13 @@ Typical YOLO trends observed:
 ---
 
 # 🖼 Results & Visualizations
+ 
+*<img width="667" height="377" alt="image" src="https://github.com/user-attachments/assets/3a5be979-e6c0-4f04-9891-88fba4d727d6" />
+<img width="670" height="374" alt="image" src="https://github.com/user-attachments/assets/ec0210a2-a124-4322-9ae5-c71d5d92ecf5" />
+<img width="667" height="375" alt="image" src="https://github.com/user-attachments/assets/c9838dd4-bfa3-46ff-abcd-37c5a1034e6d" />
 
-⬇️ **PLACE OUTPUT IMAGES BELOW**  
-*(Insert your inference/detection images here.)*  
+
+*  
 
 You may include:
 - Validation batch visualizations  
@@ -184,6 +188,19 @@ You may include:
 ---
 
 # 📓 Colab Notebook
+Includes:
+- Dataset download  
+- YOLOv8 installation  
+- Training  
+- Validation  
+- Saving and exporting weights  
+- Running predictions  
 
-The full training workflow is available in the notebook:
+---
+
+# The full training workflow is available in the notebook.
+
+### Done By - Amirtha Ganesh R
+
+
 
